@@ -1,0 +1,25 @@
+CC = g++
+CXXFLAGS = -O3
+LDFLAGS = -lm -lglut -lGLU
+TARGET = guiglut
+OBJS = $(TARGET).o greiner.o polygon.o utilities.o connector.o gpc.o martinez.o
+
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+greiner.o: greiner.h utilities.h
+
+polygon.o: polygon.h utilities.h
+
+utilities.o: utilities.h segment.h
+
+connector.o: connector.h
+
+gpc.o: gpc.h
+
+martinez.o: martinez.h connector.h
+
+$(TARGET).o: polygon.h  utilities.h martinez.h connector.h greiner.h gpc.h 
+
+clean:
+	rm $(TARGET) $(OBJS) *~
